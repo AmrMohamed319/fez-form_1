@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Registration Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .checkbox-group {
+      margin-bottom: 15px;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: normal;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background-color: #2d7a7a;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #226060;
+    }
+    .note {
+      font-size: 12px;
+      color: #777;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <form id="customerForm">
+    <h2>Customer Registration</h2>
+    
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+    <label for="phone">Phone Number</label>
+    <input id="phone" type="tel" name="phone" required>
+
+    <label for="gender">Gender</label>
+    <select id="gender" name="gender" required>
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+
+    <div class="checkbox-group">
+      <label>
+        <input type="checkbox" id="terms" required>
+        I agree to the <a href="#" target="_blank">Terms and Conditions</a>
+      </label>
+    </div>
+
+    <div class="checkbox-group">
+      <label>
+        <input type="checkbox" id="offers" checked>
+        I agree to receive promotional offers
+      </label>
+    </div>
+
+    <button type="submit">Submit</button>
+
+    <div class="note">Your data is safe and will not be shared.</div>
+  </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  <script>
+    const input = document.querySelector("#phone");
+    const iti = window.intlTelInput(input, {
+      preferredCountries: ["sa", "eg"],
+      separateDialCode: true,
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+
+    document.getElementById("customerForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      if (!iti.isValidNumber()) {
+        alert("Please enter a valid phone number.");
+        return;
+      }
+
+      const data = {
+        name: document.getElementById("name").value,
+        phone: iti.getNumber(),
+        gender: document.getElementById("gender").value,
+        termsAccepted: document.getElementById("terms").checked,
+        offersAccepted: document.getElementById("offers").checked
+      };
+
+      console.log("Form Data:", data);
+      alert("Form submitted successfully!");
+      // later this will send to Python backend or n8n webhook
+    });
+  </script>
+</body>
+</html>
