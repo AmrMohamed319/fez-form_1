@@ -1,138 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Registration Form</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل في FEZ Café</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #fafafa;
+    :root {
+      --pink: #FF4081;
+      --bg: #FFCDD2;
+      --text: #222;
+      --muted: #555;
+      --white-transparent: rgba(255,255,255,0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
     }
-    form {
-      background: white;
-      padding: 25px 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-    }
-    h2 {
+
+    .form-wrapper {
+      width: 90%;
+      max-width: 450px;
+      background: var(--white-transparent);
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(31,38,135,0.12);
+      padding: 30px 25px;
       text-align: center;
-      margin-bottom: 20px;
     }
-    label {
+
+    .logo {
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: clamp(40px, 8vw, 90px);
+      letter-spacing: clamp(8px, 2vw, 16px);
+      margin-bottom: 10px;
+    }
+    .logo .f { color: var(--pink); }
+    .logo .e, .logo .z { color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+
+    .sub-logo {
+      font-size: clamp(14px, 2vw, 20px);
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      text-align: right;
+    }
+    .form-group label {
       display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
+      margin-bottom: 6px;
+      font-weight: 700;
     }
-    input, select {
+    .form-group input,
+    .form-group select {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 10px;
+      font-size: 16px;
+      direction: ltr;
     }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--pink);
+      outline: none;
+    }
+
     .checkbox-group {
-      margin-bottom: 15px;
+      margin: 12px 0;
+      text-align: right;
     }
     .checkbox-group label {
-      display: flex;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-weight: normal;
+      color: var(--text);
     }
-    button {
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--pink);
+    }
+
+    .error-msg {
+      color: var(--pink);
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .submit-btn {
       width: 100%;
       padding: 12px;
-      border: none;
-      background-color: #2d7a7a;
+      background-color: var(--pink);
       color: white;
-      font-size: 16px;
-      border-radius: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-top: 15px;
     }
-    button:hover {
-      background-color: #226060;
+    .submit-btn:hover {
+      background-color: #e73370;
     }
-    .note {
-      font-size: 12px;
-      color: #777;
-      text-align: center;
-      margin-top: 10px;
+
+    .form-note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .success-message {
+      color: var(--pink);
+      font-size: 16px;
+      display: none;
+      margin-top: 15px;
     }
   </style>
 </head>
+
 <body>
-  <form id="customerForm">
-    <h2>Customer Registration</h2>
-    
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-
-    <label for="phone">Phone Number</label>
-    <input id="phone" type="tel" name="phone" required>
-
-    <label for="gender">Gender</label>
-    <select id="gender" name="gender" required>
-      <option value="">Select Gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select>
-
-    <div class="checkbox-group">
-      <label>
-        <input type="checkbox" id="terms" required>
-        I agree to the <a href="#" target="_blank">Terms and Conditions</a>
-      </label>
+  <div class="form-wrapper">
+    <div class="logo">
+      <span class="f">F</span><span class="e">E</span><span class="z">Z</span>
     </div>
+    <div class="sub-logo">SPECIALTY COFFEE</div>
 
-    <div class="checkbox-group">
-      <label>
-        <input type="checkbox" id="offers" checked>
-        I agree to receive promotional offers
-      </label>
-    </div>
+    <form id="registerForm" novalidate>
+      <div class="form-group">
+        <label for="name">الاسم الكامل</label>
+        <input type="text" id="name" name="name" placeholder="أدخل الاسم" required>
+        <div class="error-msg" id="error-name">يرجى إدخال الاسم</div>
+      </div>
 
-    <button type="submit">Submit</button>
+      <div class="form-group">
+        <label for="phone">رقم الهاتف</label>
+        <div style="display: flex; gap: 8px;">
+          <select id="countryCode" name="countryCode" style="flex: 0 0 30%; padding: 10px;">
+            <option value="966">+966 السعودية</option>
+            <option value="20">+20 مصر</option>
+            <!-- أضف بقية الدول حسب الحاجة -->
+          </select>
+          <input type="tel" id="phoneLocal" name="phoneLocal" placeholder="أدخل رقم الهاتف" required style="flex: 1;">
+        </div>
+        <div class="error-msg" id="error-phone">يرجى إدخال رقم هاتف صحيح</div>
+      </div>
 
-    <div class="note">Your data is safe and will not be shared.</div>
-  </form>
+      <div class="form-group">
+        <label for="gender">الجنس</label>
+        <select id="gender" name="gender" required>
+          <option value="">اختر الجنس</option>
+          <option value="male">ذكر</option>
+          <option value="female">أنثى</option>
+        </select>
+        <div class="error-msg" id="error-gender">يرجى اختيار الجنس</div>
+      </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="terms" name="terms" required>
+          أوافق على <a href="#" target="_blank">الشروط والأحكام</a>
+        </label>
+        <div class="error-msg" id="error-terms">مطلوب الموافقة على الشروط</div>
+      </div>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="offers" name="offers" checked>
+          أوافق على تلقي العروض الترويجية
+        </label>
+      </div>
+
+      <button type="submit" class="submit-btn">تسجيل الآن</button>
+
+      <div class="form-note">بياناتك آمنة ولن يتم مشاركتها.</div>
+      <div class="success-message" id="successMsg">✅ تم التسجيل بنجاح! شكرًا لانضمامك لعائلة FEZ ☕️</div>
+    </form>
+  </div>
+
   <script>
-    const input = document.querySelector("#phone");
-    const iti = window.intlTelInput(input, {
-      preferredCountries: ["sa", "eg"],
-      separateDialCode: true,
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-    });
+    // مثال بسيط للتحقق مبدئي (يمكن تحسينه لاحقًا)
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // مسح أي أخطاء سابقة
+      document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+      document.getElementById('successMsg').style.display = 'none';
 
-    document.getElementById("customerForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      if (!iti.isValidNumber()) {
-        alert("Please enter a valid phone number.");
-        return;
+      let valid = true;
+      const name = document.getElementById('name').value.trim();
+      const country = document.getElementById('countryCode').value;
+      const phoneLocal = document.getElementById('phoneLocal').value.trim();
+      const gender = document.getElementById('gender').value;
+      const terms = document.getElementById('terms').checked;
+
+      if (!name) {
+        valid = false;
+        document.getElementById('error-name').style.display = 'block';
+      }
+      if (!phoneLocal) {
+        valid = false;
+        document.getElementById('error-phone').textContent = 'يرجى إدخال رقم الهاتف';
+        document.getElementById('error-phone').style.display = 'block';
+      }
+      if (!gender) {
+        valid = false;
+        document.getElementById('error-gender').style.display = 'block';
+      }
+      if (!terms) {
+        valid = false;
+        document.getElementById('error-terms').style.display = 'block';
       }
 
+      if (!valid) return;
+
+      // تركب الرقم بصيغة كاملة
+      const fullPhone = '+' + country + phoneLocal;
+
+      // بيانات للتجربة
       const data = {
-        name: document.getElementById("name").value,
-        phone: iti.getNumber(),
-        gender: document.getElementById("gender").value,
-        termsAccepted: document.getElementById("terms").checked,
-        offersAccepted: document.getElementById("offers").checked
+        name,
+        phone: fullPhone,
+        gender,
+        accept_terms: terms,
+        accept_offers: document.getElementById('offers').checked
       };
 
-      console.log("Form Data:", data);
-      alert("Form submitted successfully!");
-      // later this will send to Python backend or n8n webhook
+      console.log("Sending data:", data);
+
+      // لمحاكاة الإرسال الناجح
+      document.getElementById('successMsg').style.display = 'block';
     });
   </script>
 </body>
